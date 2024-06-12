@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload PDF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Charger le fichier excel</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">indiquer le fichier</label>
+            <input type="file" class="form-control" id="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary">Charger</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="alert alert-info mt-3">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% if filename %}
+    <h2 class="mt-5">Uploaded PDF</h2>
+    <iframe src="{{ url_for('uploaded_file', filename=filename) }}" width="100%" height="500px"></iframe>
+    <a href="{{ url_for('send_email', filename=filename) }}" class="btn btn-success mt-3">Send Email</a>
+    {% endif %}
+</div>
+</body>
+</html>

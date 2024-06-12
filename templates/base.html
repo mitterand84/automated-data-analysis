@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon appli</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav id="navbar">
+        <img src="{{ url_for('static', filename='img/logo2.jpg') }}" alt="logo" width="75">
+        <ul id="navbar-items">
+            <li class="navbar-item">
+                <a href="{{ url_for('index') }}">Intelligence Artificielle et Data Analyst</a>
+            </li>
+            <li class="navbar-item login-logout">
+                {% if session['nom_utilisateur'] %}
+                    <a href="{{ url_for('logout') }}">{{ session['nom_utilisateur']|title if session['nom_utilisateur'] }} | Se déconnecter</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Se connecter</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <div id="container">
+        <header style="background-color: #007bff; color: #fff; padding: 20px; width: 100%; text-align: center;">
+            <h1>Bienvenue sur la plateforme d'automatisation du processus d'analyse de données</h1>
+            <h2>Ce projet a été réalisé par les apprenants du groupe 2:</h2>
+            <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
+                <li>1. M. KOLLO Mitterand</li>
+                <li>2. M. KOTUE Charles</li>
+                <li>3. Mme GUICHE Anissa Epse KOLLO</li>
+                <li>4. Mme ESSONG Cathérine Dora</li>
+            </ul>
+        </header>
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+</body>
+<footer>
+    <div id="navbar">
+        <p class="copyright-text">Copyright &copy; 2024 All Rights Reserved by kollomitter@gmail.com</p>
+    </div>
+</footer>
+</html>

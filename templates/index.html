@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Upload fichier Excel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+    {% if session['nom_utilisateur'] %}
+        <h3>Intelligence Artificielle et Data Analyst</h3>
+        <div class="container">
+            <h2 class="mt-5">Analyse tes données en 1 clic!</h2>
+            <form action="{{ url_for('upload_excel') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Cliquer sur parcourir pour charger votre fichier excel</label>
+                    <input type="file" class="form-control" id="file" name="excel_file" required>
+                </div>
+                <div class="form-group">
+                    <label for="emails">Entrez les adresses email (séparées par des virgules):</label>
+                    <input type="text" class="form-control" id="emails" name="emails" placeholder="kollomitter@gmail.com, vincentfofou18@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="attachments">Ajouter des pièces jointes:</label>
+                    <input type="file" class="form-control" id="attachments" name="attachments" multiple>
+                </div>
+                <button type="submit" class="btn btn-primary">Générer le rapport et envoyer par email</button>
+            </form>
+            {% if pdf_url %}
+                <h5>Prévisualisation...</h5>
+                <object data="{{ pdf_url }}" type="application/pdf" width="100%" height="600px">
+                <p>Your browser does not support PDF viewing. Please download the PDF to view it.</p>
+                </object>
+            {% endif %}
+        </div>
+    {% else %}
+        <h1>Accueil</h1>
+        <p>Bonjour {{ session['nom_utilisateur']|title if session['nom_utilisateur'] }} et bienvenue sur la plateforme ! <a href="{{ url_for('login') }}" style="text-decoration: none; color: blue;">Connectez-vous</a> ou <a href="{{ url_for('create_account') }}" style="text-decoration: none; color: blue;">Créez un compte</a> pour accéder à l'IA.</p>
+    {% endif %}
+
+
+{% endblock %}
